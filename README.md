@@ -6,6 +6,30 @@ This application allows user to complete the signature process less than 5s.
 
 This application is built under `React` library and it is also a responsive which can run in all devieces.
 
+To implement the signature pad I used `SignatureCanvas`.
+
+## Installation
+
+```sh
+npm i -S react-signature-canvas
+```
+
+##Usage
+
+```javascript
+import React from "react";
+import ReactDOM from "react-dom";
+import SignatureCanvas from "react-signature-canvas";
+
+ReactDOM.render(
+  <SignatureCanvas
+    penColor="green"
+    canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+  />,
+  document.getElementById("react-container")
+);
+```
+
 ## Features
 
     - User can change the color
@@ -22,3 +46,5 @@ In Mobiles
 In Laptops
 
 ![Screenshot (58)](https://github.com/lingarajhu/E-signature/assets/159787794/54763fc3-9cb7-432a-b9dc-407b954cd6b0)
+
+![Screenshot (60)](https://github.com/lingarajhu/E-signature/assets/159787794/105877c0-07d7-4f33-80ba-6896d78dec94)
