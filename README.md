@@ -15,10 +15,10 @@ This application is built under `React` library and it is also a responsive whic
 
 ## Demo
 
-    **In Mobiles**
+In Mobiles
 
 ![Screenshot (56)](https://github.com/lingarajhu/E-signature/assets/159787794/d76abfeb-a21c-48da-8da1-f7e0938ec193)
 
-    ~~In Laptops~~
+In Laptops
 
 ![Screenshot (58)](https://github.com/lingarajhu/E-signature/assets/159787794/54763fc3-9cb7-432a-b9dc-407b954cd6b0)
