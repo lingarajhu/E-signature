@@ -4,7 +4,6 @@ import SignatureCanvas from "react-signature-canvas";
 const SignaturePad = ({ color, font }) => {
   const [signature, setSignature] = useState("");
   const [finalSign, setFinalSign] = useState(null);
-  const [url, setUrl] = useState(null);
 
   const clearSignature = () => {
     signature.clear();
@@ -12,30 +11,34 @@ const SignaturePad = ({ color, font }) => {
 
   const handelSave = () => {
     const image = signature.getTrimmedCanvas().toDataURL("image/jpg");
-    console.log(image);
     setFinalSign(image);
   };
 
   const downloadImage = () => {
-    const base64String = "data:image/jpg;base64," + finalSign;
-    const base64Data = base64String.split(",")[1];
-    const binaryString = window.btoa(base64Data);
+    // Remove the data URL prefix if it exists
+    // const base64Data = finalSign.replace(/^data:image\/\w+;base64,/, "");
+    const base64Data = finalSign.split(",");
 
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
+    // Create a Blob from the base64 string
+    const blob = new Blob([Buffer.from(base64Data[1], "base64")], {
+      type: "image/png",
+    });
 
-    for (let i = 0; i < len; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
+    // Create a URL for the Blob
+    const url = window.URL.createObjectURL(blob);
 
-    const blob = new Blob([bytes], { type: "image/jpg" });
-    const imageLink = URL.createObjectURL(blob);
-    setUrl(imageLink);
-  };
+    // Create a temporary anchor element
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "signature.png");
 
-  const handelClick = () => {
-    // url && window.open(url, "_blank");
-    console.log(url);
+    // Append to the document, click it, and remove it
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Clean up the URL object
+    window.URL.revokeObjectURL(url);
   };
 
   return (
@@ -50,24 +53,26 @@ const SignaturePad = ({ color, font }) => {
           />
         </div>
       </div>
-      <div className="flex justify-between w-10/12 gap-1 md:gap-0 md:w-7/12 right-0 left-0 my-2 mx-auto md:mx-auto p-1 ">
-        <button
+      <div className="md:flex flex-wrap justify-between w-10/12 gap-2 text-center md:gap-0 md:w-7/12 right-0 left-0 mx-auto md:mx-auto p-1 ">
+        <div
           onClick={clearSignature}
-          className="border rounded-lg py-1 px-4 "
+          className="border border-b-[4px] my-2 cursor-pointer active:scale-95 rounded-lg py-1 px-4 "
         >
           Clear
-        </button>
-        <button onClick={handelSave} className="border rounded-lg py-1 px-4 ">
+        </div>
+        <div
+          onClick={handelSave}
+          className="border border-b-[4px] my-2 cursor-pointer active:scale-95 rounded-lg py-1 px-4 "
+        >
           Save
-        </button>
+        </div>
         {finalSign ? (
-          <a
-            className="border rounded-lg py-1 px-1 cursor-pointer"
-            href={url}
+          <div
+            className="border border-b-[4px] my-2 cursor-pointer active:scale-95 rounded-lg py-1 px-4 "
             onClick={downloadImage}
           >
-            <span onClick={handelClick}>Download</span>
-          </a>
+            Download
+          </div>
         ) : null}
       </div>
     </>
