@@ -53,7 +53,7 @@ const SignaturePad = ({ color, font }) => {
           />
         </div>
       </div>
-      <div className="md:flex grid grid-flow-col w-10/12 gap-1 text-center md:gap-0 md:w-7/12 right-0 left-0 mx-auto md:mx-auto p-1 ">
+      <div className="md:flex md:justify-between grid grid-flow-col w-10/12 gap-1 text-center md:gap-0 md:w-7/12 right-0 left-0 mx-auto md:mx-auto p-1 ">
         <div
           onClick={clearSignature}
           className="border border-b-[4px] my-0 cursor-pointer active:scale-95 rounded-lg py-1 px-2 "
